@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function, with_statement
 
 import tornado.web
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import func
 from tornado.options import options
 from shortener.handlers import base
 from shortener.forms import forms
@@ -33,6 +34,7 @@ class MainHandler(base.BaseHandler):
             try:
                 short_uri = models.ShortURI()
                 short_uri.full = form.uri.data
+                short_uri.created = func.now()
 
                 db.add(short_uri)
                 db.commit()
@@ -73,6 +75,7 @@ class ApiHandler(base.BaseHandler):
             try:
                 short_uri = models.ShortURI()
                 short_uri.full = form.uri.data
+                short_uri.created = func.now()
 
                 db.add(short_uri)
                 db.commit()
