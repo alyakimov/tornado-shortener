@@ -104,8 +104,9 @@ class InfoHandler(base.BaseHandler):
                 .filter(models.ShortURI.short == short)\
                 .one()
 
-            hits = db.query(models.Hit)\
+            hits = db.query(func.strftime('%Y-%m-%d', models.Hit.created), func.count())\
                 .filter(models.Hit.short_id == short_uri.id)\
+                .group_by(func.strftime('%Y-%m-%d', models.Hit.created))\
                 .all()
 
             params = {

@@ -6,7 +6,7 @@
         <h2>Information</h2>
     </div>
     <p>
-        <div><strong>Short URL:</strong> <a href="http://{{ domain }}/{{ target.short }}">{{ domain_name }}/{{ short_uri.short }}</a></div>
+        <div><strong>Short URL:</strong> <a href="http://{{ domain }}/{{ short_uri.short }}">{{ domain_name }}/{{ short_uri.short }}</a></div>
         <div><strong>Full URL:</strong> {{ short_uri.full }}</div>
         <div><strong>Created:</strong> {{ target.date }}</div>
     </p>
@@ -38,10 +38,10 @@
                 </tr>
             </tfoot>
             <tbody>
-            {% for hit in hits %}
+            {% for date, count in hits %}
                 <tr>
-                    <td>{{ hit.date }}</td>
-                    <td></td>
+                    <td>{{ date }}</td>
+                    <td>{{ count }}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -59,7 +59,7 @@ function drawChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Date');
     data.addColumn('number', 'Count');
-    data.addRows([{% for hit in hits %}['{{ hit.date }}', {{ hit.created_count }}],{% endfor %}]);
+    data.addRows([{% for date, count in hits %}['{{ date }}', {{ count }}],{% endfor %}]);
 
     var options = {
         width: 900,
