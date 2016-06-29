@@ -1,0 +1,7 @@
+tornado==4.3
+sqlalchemy==1.0.12
+Psycopg2==2.6.1
+jinja2==2.8
+WTForms==2.1
+wtforms-tornado==0.0.2
+wtforms-html5==0.1.3

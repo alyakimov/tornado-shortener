@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="jumbotron">
+	<form action="{{ reverse_url('home') }}" method="post">
+
+        {{ xsrf_form_html() }}
+
+        <div class="form-group">
+            {{ form.uri.label }}
+            <div class="row">
+                <div class="col-md-8">{{ form.uri(class_="form-control") }}</div>
+                <div class="col-md-4">{{ form.submit(class_="btn btn-primary") }}</div>
+            </div>
+            {% for error in form.uri.errors %}<p class="help-block">{{ error }}</p>{% endfor %}
+        </div>
+    </form>
+    <p>All {{ options.domain_name }} URLs and click analytics are public and can be accessed by anyone</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="well">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    {{ short_url }}
+                </div>
+            </div>
+
+            <div class="text-center">
+                <img src="http://chart.apis.google.com/chart?cht=qr&chs=125x125&chl={{ short_url }}&chld=H|0" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'description.html' %}
+{% endblock %}

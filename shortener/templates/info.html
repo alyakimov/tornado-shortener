@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="well well-large">
+    <div class="page-header">
+        <h2>Information</h2>
+    </div>
+    <p>
+        <div><strong>Short URL:</strong> <a href="http://{{ domain }}/{{ target.short }}">{{ domain_name }}/{{ short_uri.short }}</a></div>
+        <div><strong>Full URL:</strong> {{ short_uri.full }}</div>
+        <div><strong>Created:</strong> {{ target.date }}</div>
+    </p>
+</div>
+
+<div class="well well-large">
+    <div class="page-header">
+        <h2>Hits chart</h2>
+    </div>
+    <div style="width: 80%; margin: 0 auto;" id="chart_div"></div>
+</div>
+
+<div class="well well-large">
+    <div class="page-header">
+        <h2>Hits</h2>
+    </div>
+    <p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Count</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Count</th>
+                </tr>
+            </tfoot>
+            <tbody>
+            {% for hit in hits %}
+                <tr>
+                    <td>{{ hit.date }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </p>
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load('visualization', '1.0', {'packages':['corechart']});
+
+google.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Date');
+    data.addColumn('number', 'Count');
+    data.addRows([{% for hit in hits %}['{{ hit.date }}', {{ hit.created_count }}],{% endfor %}]);
+
+    var options = {
+        width: 900,
+        height: 500
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+{% endblock %}

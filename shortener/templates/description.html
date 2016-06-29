@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-lg-6">
+        <h4>Описание API:</h4>
+
+        <p>Данный сервис имеет свой API, Для того чтобы воспользоваться им достаточно передать переменную url в GET запросе по адресу {{ options.domain_name }}/_, например так:</p>
+        <p><code>$ curl -XPOST -d "uri=http://google.com" {{ options.domain_name }}/_</code></p>
+        <p>В теле ответа будет возвращен сокращенный урл: <strong>http://{{ options.domain_name }}/ab</strong></p>
+    </div>
+
+    <div class="col-lg-6">
+        <h4>Статистика:</h4>
+
+        <p>Для доступа к статистике добавьте к короткому урлу знак "+", например так:</p>
+        <p><strong>{{ options.domain_name }}/ab+</strong></p>
+    </div>
+</div>
