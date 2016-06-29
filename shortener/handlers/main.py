@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function, with_statement
 
 import tornado.web
+import tornado.log
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy import func
 from tornado.options import options
