@@ -23,7 +23,7 @@ def create_app(settings):
     return tornado.web.Application([
         tornado.web.url(r"/", main.MainHandler, name="home"),
         tornado.web.url(r"/_", main.ApiHandler, name="api"),
-        tornado.web.url(r"/([A-Za-z0-9]+)\+", main.ApiHandler, name="info"),
+        tornado.web.url(r"/([A-Za-z0-9]+)\+", main.InfoHandler, name="info"),
         tornado.web.url(r"/([A-Za-z0-9]+)", main.ApiHandler, name="redirect"),
 
         # 404 handler
