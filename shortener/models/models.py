@@ -31,7 +31,7 @@ class ShortURI(Base):
 
         while number > 30:
             key = int(number) % 31
-            number = math.floor(int(self.id) / 31) - 1
+            number = math.floor(int(number) / 31) - 1
             out = s[key] + out
 
         self.short = s[int(number)] + out
