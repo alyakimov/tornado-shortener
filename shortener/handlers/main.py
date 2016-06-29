@@ -104,9 +104,9 @@ class InfoHandler(base.BaseHandler):
                 .filter(models.ShortURI.short == short)\
                 .one()
 
-            hits = db.query(func.date_trunk('day', models.Hit.created), func.count())\
+            hits = db.query(func.date_trunc('day', models.Hit.created), func.count())\
                 .filter(models.Hit.short_id == short_uri.id)\
-                .group_by(func.date_trunk('day', models.Hit.created))\
+                .group_by(func.date_trunc('day', models.Hit.created))\
                 .all()
 
             params = {
