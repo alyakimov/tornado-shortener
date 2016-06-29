@@ -48,6 +48,10 @@ class Hit(Base):
 
 
 if __name__ == '__main__':
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
 
     from tornado.options import options
     from sqlalchemy import create_engine
