@@ -48,14 +48,25 @@ class Hit(Base):
 
 
 if __name__ == '__main__':
-    import os
-    import sys
 
-    sys.path.append(os.getcwd())
-
+    from tornado.options import options
+    from sqlalchemy import create_engine
+    from sqlalchemy.engine.url import URL
     import shortener.settings
-    from shortener.backend import backend
 
-    db = backend.Backend.instance().get_session()
-    db.create_all()
-    db.close()
+    settings = {
+        "drivername": options.db_drivername,
+        "username": options.db_username,
+        "password": options.db_password,
+        "host": options.db_host,
+        "port": options.db_port,
+        "database": options.db_database
+    }
+
+    engine = create_engine(
+        URL(**settings),
+        echo=options.tornado_debug,
+        echo_pool=options.tornado_debug
+    )
+
+    Base.metadata.create_all(engine)
