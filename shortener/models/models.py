@@ -48,8 +48,13 @@ class Hit(Base):
 
 
 if __name__ == '__main__':
-    from shortener.backend import backend
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
     import shortener.settings
+    from shortener.backend import backend
 
     db = backend.Backend.instance().get_session()
     db.create_all()
