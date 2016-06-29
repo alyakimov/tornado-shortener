@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function, with_statement
 import math
 import string
 from sqlalchemy import Column, String, DateTime, BigInteger
-from sqlalchemy import UniqueConstraint, ForeignKey, Sequence
+from sqlalchemy import UniqueConstraint, ForeignKey, Sequence, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -45,6 +45,11 @@ class Hit(Base):
     ip = Column(String(15), nullable=True)
     referrer = Column(String(4000), nullable=True)
     created = Column(DateTime(timezone=True), nullable=False)
+
+    def __init__(self, ip, referrer):
+        self.ip = ip
+        self.referrer = referrer
+        self.created = func.now()
 
 
 if __name__ == '__main__':

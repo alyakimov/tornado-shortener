@@ -126,6 +126,34 @@ class InfoHandler(base.BaseHandler):
             db.close()
 
 
+class RedirectHandler(base.BaseHandler):
+
+    def get(self, short):
+
+        db = backend.Backend.instance().get_session()
+
+        try:
+            short_uri = db.query(models.ShortURI)\
+                .filter(models.ShortURI.short == short)\
+                .one()
+
+            x_real_ip = self.request.headers.get("X-Real-IP")
+            remote_ip = x_real_ip or self.request.remote_ip
+
+            short_uri.hits.append(models.Hit(remote_ip, self.request.headers.get('Referer')))
+            db.commit()
+
+            self.redirect(short_uri.full)
+            return
+
+        except NoResultFound:
+            self.set_status(404)
+            self.jinja_render("404.html")
+            self.finish()
+        finally:
+            db.close()
+
+
 class NotFoundHandler(base.BaseHandler):
 
     def get(self, *args, **kwargs):
