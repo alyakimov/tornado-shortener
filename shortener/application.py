@@ -7,6 +7,7 @@ from __future__ import absolute_import, division, print_function, with_statement
 
 import os
 import sys
+sys.path.append(os.getcwd())
 import tornado.ioloop
 import tornado.web
 import tornado.options
@@ -31,7 +32,6 @@ def create_app(settings):
 
 
 if __name__ == "__main__":
-    sys.path.append(os.getcwd())
 
     tornado.options.parse_command_line()
 
