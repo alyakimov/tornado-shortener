@@ -91,6 +91,7 @@ class ApiHandler(base.BaseHandler):
                 db.close()
 
         else:
+            tornado.log.app_log.warning("Invalid data {}".format(form.errors))
             self.send_error(400)
 
 
